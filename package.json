@@ -15,6 +15,7 @@
     "react-facebook-login": "^4.1.1",
     "react-ga": "^3.1.2",
     "react-google-login": "^5.1.21",
+    "react-instagram-login": "^1.4.0",
     "react-intl": "^5.4.7",
     "react-intl-redux": "^2.2.0",
     "react-new-window": "^0.1.2",
@@ -28,8 +29,8 @@
     "styled-media-query": "^2.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "env-cmd -f .env.local react-scripts start",
+    "build": "env-cmd -f .env.production react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -14,5 +14,28 @@ export default {
     inputTwitterAccount: "Twitterアカウントを入力してください",
     inputFacebookAccount: "Facebookアカウントを入力してください",
     inputLineAccount:"Lineアカウントを入力してください",
+    inputInstagramAccount: "Instagramのアカウントを入力してください",
+    inputMailAddresses: "メールアドレスを入力してください（無回答・複数回答可能）"
+  },
+  search: {
+    loading: "検索中",
+    realName: "本名",
+    nickNames: "ニックネーム",
+    gmailAddress: "Gmailアドレス",
+    twitterName: "Twitter名",
+    facebookName: "FaceBook名",
+    lineName: "Line名",
+    instagramName: "Instagram名",
+    mailAddresses: "メールアドレス"
+  },
+  profile: {
+    realName: "本名",
+    nickNames: "ニックネーム",
+    gmailAddress: "Gmailアドレス",
+    twitterName: "Twitter名",
+    facebookName: "FaceBook名",
+    lineName: "Line名",
+    instagramName: "Instagram名",
+    mailAddresses: "メールアドレス"
   }
 }

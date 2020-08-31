@@ -1,0 +1,17 @@
+.line-button {
+    background-image: url("./line/btn_login_base.png");
+    cursor: pointer;
+    background-repeat: no-repeat;
+    width: 15vw;
+    height: 4vw;
+    background-size: 100% 100%;
+    border: none !important;
+}
+
+.line-button:hover {
+    background-image: url("./line/btn_login_hover.png");
+}
+
+.line-button:active {
+    background-image: url("./line/btn_login_press.png");
+}

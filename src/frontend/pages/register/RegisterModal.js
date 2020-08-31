@@ -1,15 +1,17 @@
-import {Button, Icon, Image, Input, Modal} from "semantic-ui-react";
+import {Button, Icon, Input, Modal} from "semantic-ui-react";
 import React, {useState} from "react";
 import {FormattedMessage} from "react-intl";
 import GoogleLogin from 'react-google-login';
 import TwitterLogin from "react-twitter-login";
-import {useLocation} from 'react-router-dom'
 import FacebookLogin from 'react-facebook-login';
 import LineLogin from "./LineLoginButton";
+import InstagramLogin from "react-instagram-login";
+import UserAPI from "../../../reposirory/api/UserAPI";
 
 const RegisterModal = ({...other}) => {
-    const path = useLocation().pathname;
-    const [step, setStep] = useState(path.toString().endsWith("twitter") ? 4 : 1);
+    const [step, setStep] = useState( 1);
+
+    const finalStep = 8;
     const incrementStep = () => setStep(step + 1);
     const decrementStep = () => setStep(step - 1);
 
@@ -50,6 +52,7 @@ const RegisterModal = ({...other}) => {
     const [facebookName, setFacebookName] = useState(void 0);
     const responseFacebook = (response) => {
       if (response) {
+        console.log(response)
         setFacebookId(response.id);
         setFacebookName(response.name);
       }
@@ -65,6 +68,23 @@ const RegisterModal = ({...other}) => {
       }
     };
 
+    // Instagram
+    const [instagramId, setInstagramId] = useState(void 0);
+    const [instagramName, setInstagramName] = useState(void 0);
+    const responseInstagram = (response) => {
+      console.log(response)
+    };
+
+    // mail address
+    const [mailAddresses, setMailAddresses] = useState([""]);
+    const addMailAddresses = () => setMailAddresses([...mailAddresses, ""]);
+    const modifyMailAddresses = (newMailAddress, index) => setMailAddresses(mailAddresses.map((mailAddress, i) => index === i ? newMailAddress : mailAddress));
+    const deleteMailAddresses = () => setMailAddresses(mailAddresses.filter((mailAddress, i) => i !== mailAddresses.length - 1));
+
+    const registerToDatabase = ()=> {
+      const profile = {realName,nickNames,gmail,googleId,twitterId,twitterName,facebookId,facebookName,lineId,lineName,instagramId,instagramName,mailAddresses};
+      UserAPI.registerUserProfile({profile}).then(other.onClose())
+    };
 
     const switchRenderByStep = step => {
         switch (step) {
@@ -136,7 +156,8 @@ const RegisterModal = ({...other}) => {
               {facebookName ? `Facebook Name : ${facebookName}` :
                 <FacebookLogin
                   appId="300757644320774"
-                  fields="name,email,picture"
+                  fields="name,email,picture,link"
+                  scope="public_profile, email, user_birthday"
                   callback={responseFacebook}
                 />
               }
@@ -150,11 +171,48 @@ const RegisterModal = ({...other}) => {
               {
                 lineName ? `Line Name : ${lineName}` :
                   <LineLogin clientID='1654714820'
-                          clientSecret='7269e58c01d5251d14cc9f0fe50710f3'
-                          state='XAg2r5HT' // We can make it
-                          redirectURI='http://localhost:3000/register/line'
-                          scope='profile'
-                          callback={responseLine}/>
+                             clientSecret='7269e58c01d5251d14cc9f0fe50710f3'
+                             state='XAg2r5HT' // We can make it
+                             redirectURI='http://localhost:3000/register/line'
+                             scope='profile'
+                             callback={responseLine}/>
+              }
+            </div>
+          }
+          case 7: {
+            return <div>
+              <Modal.Description>
+                <FormattedMessage id={"register.inputInstagramAccount"}/>
+              </Modal.Description>
+              {
+                instagramName ? `Instagram Name : ${instagramName}` :
+                  <InstagramLogin
+                    clientId="815146135690276"
+                    buttonText="Login"
+                    onSuccess={responseInstagram}
+                    onFailure={responseInstagram}
+                  />
+              }
+            </div>
+          }
+          case 8: {
+            return <div>
+              <Modal.Description>
+                <FormattedMessage id={"register.inputMailAddresses"}/>
+              </Modal.Description>
+              {
+                mailAddresses.map((mailAddress, i) => (
+                  <div key={i}>
+                    <Input type={"text"} size={"massive"} onChange={e => modifyMailAddresses(e.target.value, i)}
+                           value={mailAddress}/>
+                    {i !== 0 && i === mailAddresses.length - 1 &&
+                    <Icon name="minus circle" color="red" size="huge" onClick={deleteMailAddresses}/>
+                    }
+                    {i === 0 &&
+                    <Icon name="plus circle" color="green" size="huge" onClick={addMailAddresses}/>
+                    }
+                  </div>
+                ))
               }
             </div>
           }
@@ -172,9 +230,12 @@ const RegisterModal = ({...other}) => {
         {step !== 1 && <Button basic size={"massive"} onClick={decrementStep}>
           Previous
         </Button>}
-        <Button primary size={"massive"} onClick={incrementStep}>
+        {step !== finalStep && <Button primary size={"massive"} onClick={incrementStep}>
           Next
-        </Button>
+        </Button>}
+        {step === finalStep && <Button primary size={"massive"} onClick={registerToDatabase}>
+          Complete
+        </Button>}
       </Modal.Actions>
     </Modal>
   }

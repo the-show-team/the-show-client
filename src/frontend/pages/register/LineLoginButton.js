@@ -3,7 +3,6 @@ import axios from 'axios';
 import url from 'url';
 import qs from 'qs';
 import querystring from 'querystring';
-import jwt from 'jsonwebtoken';
 import './register.css'
 import NewWindow from 'react-new-window'
 

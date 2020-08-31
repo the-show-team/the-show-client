@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, Checkbox, Form, Icon, Image, Modal} from 'semantic-ui-react'
+import {Button, Form} from 'semantic-ui-react'
 import styled from "styled-components";
 import {FormattedMessage} from "react-intl";
 import TermModal from "./TermModal";

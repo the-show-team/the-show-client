@@ -3,9 +3,6 @@ import React from "react";
 import styled from "styled-components";
 
 const TwitterRegister = () => {
-  const responseTwitter = (error, response) => {
-    console.log("after:", response)
-  };
   return <NoDisplay>
     <TwitterLogin
     />

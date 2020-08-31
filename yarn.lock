@@ -8993,6 +8993,11 @@ react-google-login@^5.1.21:
     "@types/react" "*"
     prop-types "^15.6.0"
 
+react-instagram-login@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-instagram-login/-/react-instagram-login-1.4.0.tgz#c2419d1569a0144f0220de17e0fc3294545218ae"
+  integrity sha512-iXVYm7bvHdVsjNOmCvHDbf3DIegYg/wH2khL8nA1LGAd5WoTcauOwaZNzMtQkRm4jkfbmbUORPV4fa7kEL4bnw==
+
 react-intl-redux@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/react-intl-redux/-/react-intl-redux-2.2.0.tgz#7187865c86931f7d69d88a243c1143cfc06f1bf0"

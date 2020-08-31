@@ -4,12 +4,14 @@ import {createGlobalStyle} from "styled-components";
 
 import "semantic-ui-css/semantic.min.css"
 import "@fortawesome/fontawesome-free/css/all.css";
-import ErrorBoundary from "./components/organisms/error/ErrorBoundary";
+import ErrorBoundary from "./frontend/components/organisms/error/ErrorBoundary";
 import ReactGA from "react-ga";
-import Home from "./pages/home/home";
-import Register from "./pages/register/Register";
-import TwitterRegister from "./pages/register/TwitterRegister";
-import LineLogin from "./pages/register/LineLoginButton";
+import Home from "./frontend/pages/home/home";
+import Register from "./frontend/pages/register/Register";
+import TwitterRegister from "./frontend/pages/register/TwitterRegister";
+import LineLogin from "./frontend/pages/register/LineLoginButton";
+import Search from "./frontend/pages/search/Search";
+import User from "./frontend/pages/user/User";
 
 ReactGA.initialize("UA-175194207-1");
 const path = window.location.pathname + window.location.search;
@@ -81,6 +83,8 @@ const App = () => {
             <Route exact path="/register" component={Register}/>
             <Route exact path="/register/twitter" component={TwitterRegister}/>
             <Route exact path="/register/line" component={LineLogin}/>
+            <Route exact path="/search" component={Search}/>
+            <Route path="/user/:id" component={User}/>
           </LocationListener>
         </BrowserRouter>
       </React.Fragment>
