@@ -1,40 +1,47 @@
 import React from "react";
 import styled from "styled-components";
 import mediaQuery from "styled-media-query";
+import LanguageSelector from "./languageSelector";
+import {Link} from "react-router-dom";
 
 
 const Header = () => {
-  return <Container>
-    <Title>The Show</Title>
-  </Container>
+  return <div>
+    <Container>
+      <Link to="/"><Banner src="/images/banner/title-banner.png"/></Link>
+      <Menu>
+        <LanguageSelector/>
+      </Menu>
+    </Container>
+  </div>
 };
 
 const mediaMobile = mediaQuery.lessThan("medium");
 
 
 const Container = styled.div`
-    background-color: #0A0A0A;
     width: 100vw;
     height: 16vh;
-    ${mediaMobile`height: 32vh;`}
+    ${mediaMobile`height: 10vh;`}
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 `;
 
-const Title = styled.div`
-  font-family: Vermin Vibes 2 White;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 8rem;
-  ${mediaMobile`font-size: 6rem;`}
-  line-height: 15vh;
-  text-align: center;
-  
-  color: #696969;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #7FFF1A;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+const Banner = styled.img`
+  width: 40vw;
+  ${mediaMobile`width: 50vw;`}
+`;
+const Menu = styled.div`
+  display: flex;
+  justify-content : flex-end;
+  align-items: baseline;
+  width: 30vw;
+  font-size: 1.8rem;
+  ${mediaMobile`font-size: 0.9rem;`}
+  ${mediaMobile`width: 60vw;`}
+  font-family: Roboto;
+  margin-right: 2vw;
 `;
 
 export default Header

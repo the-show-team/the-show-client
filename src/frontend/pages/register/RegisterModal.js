@@ -1,5 +1,5 @@
 import {Button, Icon, Input, Modal} from "semantic-ui-react";
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {FormattedMessage} from "react-intl";
 import GoogleLogin from 'react-google-login';
 import TwitterLogin from "react-twitter-login";
@@ -9,30 +9,32 @@ import InstagramLogin from "react-instagram-login";
 import UserAPI from "../../../reposirory/api/UserAPI";
 
 const RegisterModal = ({...other}) => {
-    const [step, setStep] = useState( 1);
+    const [step, setStep] = useState(1);
 
     const finalStep = 8;
-    const incrementStep = () => setStep(step + 1);
-    const decrementStep = () => setStep(step - 1);
+    //TODO: setxxを行っているコールバック系は全部useCallBackで囲む
+    const incrementStep = useCallback(() => setStep(step + 1), [step]);
+    const decrementStep = useCallback(() => setStep(step - 1), [step]);
 
     // real name
     const [realName, setRealName] = useState("");
-
+    console.log(process.env.REACT_APP_THE_SHOW_GOOGLE_CLIENT_ID)
     // nick name
     const [nickNames, setNickNames] = useState([""]);
-    const addNickNames = () => setNickNames([...nickNames, ""]);
-    const modifyNickNames = (newNickName, index) => setNickNames(nickNames.map((nickName, i) => index === i ? newNickName : nickName));
-    const deleteNickName = () => setNickNames(nickNames.filter((nickName, i) => i !== nickNames.length - 1));
+    const addNickNames = useCallback(() => setNickNames([...nickNames, ""]), [nickNames]);
+    const modifyNickNames = useCallback((newNickName, index) =>
+      setNickNames(nickNames.map((nickName, i) => index === i ? newNickName : nickName)), [nickNames]);
+    const deleteNickName = useCallback(() => setNickNames(nickNames.filter((nickName, i) => i !== nickNames.length - 1)), [nickNames]);
 
     // Google
     const [gmail, setGmail] = useState("");
     const [googleId, setGoogleId] = useState(void 0);
-    const responseGoogle = (response) => {
+    const responseGoogle = useCallback((response) => {
       if (response) {
         setGmail(response.profileObj.email);
         setGoogleId(response.googleId);
       }
-    };
+    }, []);
     const errorGoogle = (error) => {
       console.error(error)
     };
@@ -40,49 +42,63 @@ const RegisterModal = ({...other}) => {
     // Twitter
     const [twitterId, setTwitterId] = useState(void 0);
     const [twitterName, setTwitterName] = useState(void 0);
-    const responseTwitter = (error, response) => {
+    const responseTwitter = useCallback((error, response) => {
       if (response) {
         setTwitterId(response.user_id);
         setTwitterName(response.screen_name);
       }
-    };
+    }, []);
 
     //Facebook
     const [facebookId, setFacebookId] = useState(void 0);
     const [facebookName, setFacebookName] = useState(void 0);
-    const responseFacebook = (response) => {
+    const responseFacebook = useCallback((response) => {
       if (response) {
-        console.log(response)
         setFacebookId(response.id);
         setFacebookName(response.name);
       }
-    };
+    }, []);
 
     //Line
     const [lineId, setLineId] = useState(void 0);
     const [lineName, setLineName] = useState(void 0);
-    const responseLine = (response) => {
+    const responseLine = useCallback((response) => {
       if (response) {
         setLineId(response.userId);
         setLineName(response.displayName);
       }
-    };
+    }, []);
 
     // Instagram
     const [instagramId, setInstagramId] = useState(void 0);
     const [instagramName, setInstagramName] = useState(void 0);
-    const responseInstagram = (response) => {
-      console.log(response)
-    };
+    const responseInstagram = useCallback((response) => {
+    }, []);
 
     // mail address
     const [mailAddresses, setMailAddresses] = useState([""]);
-    const addMailAddresses = () => setMailAddresses([...mailAddresses, ""]);
-    const modifyMailAddresses = (newMailAddress, index) => setMailAddresses(mailAddresses.map((mailAddress, i) => index === i ? newMailAddress : mailAddress));
-    const deleteMailAddresses = () => setMailAddresses(mailAddresses.filter((mailAddress, i) => i !== mailAddresses.length - 1));
+    const addMailAddresses = useCallback(() => setMailAddresses([...mailAddresses, ""]), [mailAddresses]);
+    const modifyMailAddresses = useCallback((newMailAddress, index) =>
+      setMailAddresses(mailAddresses.map((mailAddress, i) => index === i ? newMailAddress : mailAddress)), [mailAddresses]);
+    const deleteMailAddresses = useCallback(() =>
+      setMailAddresses(mailAddresses.filter((mailAddress, i) => i !== mailAddresses.length - 1)), [mailAddresses]);
 
-    const registerToDatabase = ()=> {
-      const profile = {realName,nickNames,gmail,googleId,twitterId,twitterName,facebookId,facebookName,lineId,lineName,instagramId,instagramName,mailAddresses};
+    const registerToDatabase = () => {
+      const profile = {
+        realName,
+        nickNames,
+        gmail,
+        googleId,
+        twitterId,
+        twitterName,
+        facebookId,
+        facebookName,
+        lineId,
+        lineName,
+        instagramId,
+        instagramName,
+        mailAddresses
+      };
       UserAPI.registerUserProfile({profile}).then(other.onClose())
     };
 
@@ -124,7 +140,7 @@ const RegisterModal = ({...other}) => {
               </Modal.Description>
               {gmail ? `Gmail Address : ${gmail}` :
                 <GoogleLogin
-                  clientId="982685712967-20u6oadrhmvd52ala8ate9322o5me7n7.apps.googleusercontent.com"
+                  clientId={process.env.REACT_APP_THE_SHOW_GOOGLE_CLIENT_ID}
                   buttonText="Login"
                   onSuccess={responseGoogle}
                   onFailure={errorGoogle}
@@ -141,9 +157,9 @@ const RegisterModal = ({...other}) => {
               {twitterName ? `Twitter Name : ${twitterName}` :
                 <TwitterLogin
                   authCallback={responseTwitter}
-                  consumerKey={"6DCoOIk69QJtvI3vUe8nUPCaQ"}
-                  consumerSecret={"1n2dE9NoI6Qsa2ns8yCbaltlMUgvg69lzYJMB718M00kjTuqPj"}
-                  callbackUrl={"http://localhost:3000/register/twitter"}
+                  consumerKey={process.env.REACT_APP_THE_SHOW_TWITTER_CUSTOMER_KEY}
+                  consumerSecret={process.env.REACT_APP_THE_SHOW_TWITTER_CUSTOMER_SECRET}
+                  callbackUrl={`${process.env.REACT_APP_THE_SHOW_SELF_URL}/register/twitter`}
                 />
               }
             </div>
@@ -155,9 +171,9 @@ const RegisterModal = ({...other}) => {
               </Modal.Description>
               {facebookName ? `Facebook Name : ${facebookName}` :
                 <FacebookLogin
-                  appId="300757644320774"
-                  fields="name,email,picture,link"
-                  scope="public_profile, email, user_birthday"
+                  appId={process.env.REACT_APP_THE_SHOW_FACEBOOK_APP_ID}
+                  fields="name,email,picture"
+                  scope="public_profile, email"
                   callback={responseFacebook}
                 />
               }
@@ -170,10 +186,10 @@ const RegisterModal = ({...other}) => {
               </Modal.Description>
               {
                 lineName ? `Line Name : ${lineName}` :
-                  <LineLogin clientID='1654714820'
-                             clientSecret='7269e58c01d5251d14cc9f0fe50710f3'
-                             state='XAg2r5HT' // We can make it
-                             redirectURI='http://localhost:3000/register/line'
+                  <LineLogin clientID={process.env.REACT_APP_THE_SHOW_LINE_CLIENT_ID}
+                             clientSecret={process.env.REACT_APP_THE_SHOW_LINE_CLIENT_SECRET}
+                             state={process.env.REACT_APP_THE_SHOW_LINE_STATE} // We can make it
+                             redirectURI={`${process.env.REACT_APP_THE_SHOW_SELF_URL}/register/line`}
                              scope='profile'
                              callback={responseLine}/>
               }
@@ -187,7 +203,7 @@ const RegisterModal = ({...other}) => {
               {
                 instagramName ? `Instagram Name : ${instagramName}` :
                   <InstagramLogin
-                    clientId="815146135690276"
+                    clientId={process.env.REACT_APP_THE_SHOW_INSTAGRAM_CLIENT_ID}
                     buttonText="Login"
                     onSuccess={responseInstagram}
                     onFailure={responseInstagram}

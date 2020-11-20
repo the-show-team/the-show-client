@@ -3,7 +3,11 @@ export default {
     register: "登録",
     search: "検索",
     login: "ログイン",
-    others: "その他"
+    others: "その他",
+    subTitle: "永遠の連絡先管理ツール",
+    about: "概要",
+    description1: "We manage your email, social networking and other contacts in one place.",
+    description2: "This will enrich your life by reducing the hassle of reopening each app over and over again when exchanging contacts.",
   },
   register: {
     checkTerm: "規約を確認する",
@@ -17,25 +21,8 @@ export default {
     inputInstagramAccount: "Instagramのアカウントを入力してください",
     inputMailAddresses: "メールアドレスを入力してください（無回答・複数回答可能）"
   },
-  search: {
-    loading: "検索中",
-    realName: "本名",
-    nickNames: "ニックネーム",
-    gmailAddress: "Gmailアドレス",
-    twitterName: "Twitter名",
-    facebookName: "FaceBook名",
-    lineName: "Line名",
-    instagramName: "Instagram名",
-    mailAddresses: "メールアドレス"
-  },
   profile: {
-    realName: "本名",
-    nickNames: "ニックネーム",
-    gmailAddress: "Gmailアドレス",
-    twitterName: "Twitter名",
-    facebookName: "FaceBook名",
-    lineName: "Line名",
-    instagramName: "Instagram名",
-    mailAddresses: "メールアドレス"
+    sContacts: "さんの連絡先",
+    showQR: "QRコードを表示",
   }
 }

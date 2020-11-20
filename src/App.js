@@ -12,6 +12,17 @@ import TwitterRegister from "./frontend/pages/register/TwitterRegister";
 import LineLogin from "./frontend/pages/register/LineLoginButton";
 import Search from "./frontend/pages/search/Search";
 import User from "./frontend/pages/user/User";
+import FromCognito from "./frontend/pages/login/FromCognito";
+import {withAuthenticator} from 'aws-amplify-react';
+
+import Amplify from 'aws-amplify';
+import '@aws-amplify/ui/dist/style.css';
+import awsmobile from "./aws-exports";
+import SignInWithGoogle from "./frontend/pages/login/SignInWithGoogle";
+
+
+
+Amplify.configure(awsmobile);
 
 ReactGA.initialize("UA-175194207-1");
 const path = window.location.pathname + window.location.search;
@@ -29,9 +40,6 @@ const GlobalStyles = createGlobalStyle`
         sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-    }
-    .ui .header {
-        color: #897657;
     }
     ::-webkit-scrollbar {
        width: 10px;
@@ -85,6 +93,8 @@ const App = () => {
             <Route exact path="/register/line" component={LineLogin}/>
             <Route exact path="/search" component={Search}/>
             <Route path="/user/:id" component={User}/>
+            <Route exact path="/login/from-cognito" component={FromCognito}/>
+            <Route exact path="/login" component={withAuthenticator(SignInWithGoogle)}/>
           </LocationListener>
         </BrowserRouter>
       </React.Fragment>

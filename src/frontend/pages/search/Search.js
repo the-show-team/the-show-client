@@ -16,10 +16,10 @@ const Search = () => {
     return <Redirect to={`/user/${detailId}`}/>
   }
   return <div>
-    <div class="ui search">
-      <div class="ui icon input">
-        <input class="prompt" type="text" placeholder="Search"/>
-        <i class="search icon"/>
+    <div className="ui search">
+      <div className="ui icon input">
+        <input className="prompt" type="text" placeholder="Search"/>
+        <i className="search icon"/>
       </div>
     </div>
     <div className="ui grid">
