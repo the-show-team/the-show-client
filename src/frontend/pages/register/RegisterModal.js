@@ -18,7 +18,6 @@ const RegisterModal = ({...other}) => {
 
     // real name
     const [realName, setRealName] = useState("");
-    console.log(process.env.REACT_APP_THE_SHOW_GOOGLE_CLIENT_ID)
     // nick name
     const [nickNames, setNickNames] = useState([""]);
     const addNickNames = useCallback(() => setNickNames([...nickNames, ""]), [nickNames]);
@@ -64,6 +63,7 @@ const RegisterModal = ({...other}) => {
     const [lineName, setLineName] = useState(void 0);
     const responseLine = useCallback((response) => {
       if (response) {
+        console.log(response)
         setLineId(response.userId);
         setLineName(response.displayName);
       }
@@ -190,7 +190,7 @@ const RegisterModal = ({...other}) => {
                              clientSecret={process.env.REACT_APP_THE_SHOW_LINE_CLIENT_SECRET}
                              state={process.env.REACT_APP_THE_SHOW_LINE_STATE} // We can make it
                              redirectURI={`${process.env.REACT_APP_THE_SHOW_SELF_URL}/register/line`}
-                             scope='profile'
+                             scope='profile openid'
                              callback={responseLine}/>
               }
             </div>

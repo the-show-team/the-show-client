@@ -14,7 +14,7 @@ const User = ({match}) => {
   const displayNickName = useMemo(() => userProfile?.nickNames.join(","), [userProfile?.nickNames]);
   const displayName = useMemo(() => userProfile?.realName && userProfile?.nickNames.length > 0 ?
     `${userProfile.realName} (${displayNickName}) ` : userProfile?.realName || displayNickName, [userProfile?.realName, userProfile?.nickNames]);
-  const qrURL = useMemo(() => `${process.env.REACT_APP_THE_SHOW_SELF_URL}/${userId}`, [])
+  const qrURL = useMemo(() => `${process.env.REACT_APP_THE_SHOW_SELF_URL}/user/${userId}`, [])
   const handleOpenQR = useCallback(() => {
     setIsQROpen(true);
   }, []);
@@ -31,33 +31,51 @@ const User = ({match}) => {
       <ContainerHeader className="ui header">{displayName}<FormattedMessage id="profile.sContacts"/></ContainerHeader>
       {/*TODO: Follow and Send*/}
       <div className="ui container">
-        <Row>
-          <SnsIcon src="/images/icon/gmail.png"/>
-          <a href={`mailto:${userProfile.gmail}`}>{userProfile.gmail}</a>
-        </Row>
-        <Row>
-          <SnsIcon src="/images/icon/twitter.png"/>
-          <a href={`https://twitter.com/${userProfile.twitterName}`}>@{userProfile.twitterName}</a>
-        </Row>
-        <Row>
-          <SnsIcon src="/images/icon/facebook.png"/>
-          <a href={`https://facebook.com/${userProfile.facebookId}`}>{userProfile.facebookName}</a>
-        </Row>
-        <Row>
-          <SnsIcon src="/images/icon/instagram.png"/>
-          <a href={`https://instagram.com/${userProfile.instagramName}`}>@{userProfile.instagramName}</a>
-        </Row>
-        <Row>
-          <SnsIcon src="/images/icon/mail.png"/>
-          <div>{userProfile.mailAddresses.map((mailAddress, i) => <div key={i}>
-            <a href={`mailto:${mailAddress}`}>{mailAddress}</a>
-          </div>)}
-          </div>
-        </Row>
-        <Row>
-          <SnsIcon src="/images/icon/line.png"/>
-          {userProfile.lineName}
-        </Row>
+        {
+          userProfile.gmail &&
+          <Row>
+            <SnsIcon src="/images/icon/gmail.png"/>
+            <a href={`mailto:${userProfile.gmail}`}>{userProfile.gmail}</a>
+          </Row>
+        }
+        {
+          userProfile.twitterName &&
+          <Row>
+            <SnsIcon src="/images/icon/twitter.png"/>
+            <a href={`https://twitter.com/${userProfile.twitterName}`}>@{userProfile.twitterName}</a>
+          </Row>
+        }
+        {
+          userProfile.facebookId &&
+          <Row>
+            <SnsIcon src="/images/icon/facebook.png"/>
+            <a href={`https://facebook.com/${userProfile.facebookId}`}>{userProfile.facebookName}</a>
+          </Row>
+        }
+        {
+          userProfile.instagramName &&
+          <Row>
+            <SnsIcon src="/images/icon/instagram.png"/>
+            <a href={`https://instagram.com/${userProfile.instagramName}`}>@{userProfile.instagramName}</a>
+          </Row>
+        }
+        {
+          userProfile.mailAddresses?.length > 0 &&
+          <Row>
+            <SnsIcon src="/images/icon/mail.png"/>
+            <div>{userProfile.mailAddresses.map((mailAddress, i) => <div key={i}>
+              <a href={`mailto:${mailAddress}`}>{mailAddress}</a>
+            </div>)}
+            </div>
+          </Row>
+        }
+        {
+          userProfile.lineName &&
+          <Row>
+            <SnsIcon src="/images/icon/line.png"/>
+            {userProfile.lineName}
+          </Row>
+        }
         <Modal
           onClose={handleCloseQR}
           onOpen={handleOpenQR}

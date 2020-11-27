@@ -10,6 +10,7 @@ export default {
     description2: "This will enrich your life by reducing the hassle of reopening each app over and over again when exchanging contacts.",
   },
   register: {
+    title: "register",
     checkTerm: "規約を確認する",
     agreeTermAndRegister: "規約に同意し登録する",
     inputRealName: "本名を入力してください。（公開したくない場合は空白にしてください）",
@@ -19,7 +20,14 @@ export default {
     inputFacebookAccount: "Facebookアカウントを入力してください",
     inputLineAccount:"Lineアカウントを入力してください",
     inputInstagramAccount: "Instagramのアカウントを入力してください",
-    inputMailAddresses: "メールアドレスを入力してください（無回答・複数回答可能）"
+    inputMailAddresses: "メールアドレスを入力してください（無回答・複数回答可能）",
+    prev: "previous",
+    next: "next",
+    step1: {
+      message: "At lease one of the following will be sent to your friend when you send your contact.",
+      name: "Name",
+      nickName: "Nick Name",
+    }
   },
   profile: {
     sContacts: "'s contacts'",

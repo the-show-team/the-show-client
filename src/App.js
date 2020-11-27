@@ -19,6 +19,7 @@ import Amplify from 'aws-amplify';
 import '@aws-amplify/ui/dist/style.css';
 import awsmobile from "./aws-exports";
 import SignInWithGoogle from "./frontend/pages/login/SignInWithGoogle";
+import RegisterContainer from "./frontend/pages/register/dragAndDrop/RegisterContainer";
 
 
 
@@ -89,6 +90,7 @@ const App = () => {
           <LocationListener>
             <Route exact path="/" component={Home}/>
             <Route exact path="/register" component={Register}/>
+            <Route exact path="/register/step" component={RegisterContainer}/>
             <Route exact path="/register/twitter" component={TwitterRegister}/>
             <Route exact path="/register/line" component={LineLogin}/>
             <Route exact path="/search" component={Search}/>

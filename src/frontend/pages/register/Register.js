@@ -4,6 +4,7 @@ import styled from "styled-components";
 import {FormattedMessage} from "react-intl";
 import TermModal from "./TermModal";
 import RegisterModal from "./RegisterModal";
+import {Link} from "react-router-dom";
 
 const Register = () => {
   const [openTerm, setOpenTerm] = useState(false);
@@ -21,9 +22,9 @@ const Register = () => {
             setAgreeTerm(true);
           }}
           onDisAgree={() => setOpenTerm(false)}
-          trigger={<Button size="massive"><FormattedMessage id="register.checkTerm"/></Button>}
+          trigger={<Button size="large"><FormattedMessage id="register.checkTerm"/></Button>}
         />
-        <Button primary size="massive" onClick={() => agreeTerm && setOpenRegister(true)}><FormattedMessage id="register.agreeTermAndRegister"/></Button>
+        <Link to="/register/step"><Button primary size="large"><FormattedMessage id="register.agreeTermAndRegister"/></Button></Link>
         <RegisterModal
           open={openRegister}
           onClose={() => setOpenRegister(false)}
@@ -40,6 +41,7 @@ const Term = styled.div`
   place-content: center;
   align-items: center;
   height: 100vh;
+  white-space: nowrap;
 `;
 
 export default Register;

@@ -13,6 +13,8 @@ const Container = styled.div`
     height: 10vh;
     display: grid;
     place-content: center;
+    position:absolute;
+    bottom:0;
 `;
 
 const CopyRight = styled.span`
