@@ -24,10 +24,13 @@ export default {
     prev: "前へ",
     next: "次へ",
     step1: {
-      message: "本名かニックネームを入力してください",
-      name: "名前",
+      message: "本名かニックネームを入力してください。",
+      name: "本名",
       nickName: "ニックネーム",
-    }
+    },
+    step2: {
+      message: "このアプリへのログインに使用するサービスを最低一つ選択します。連絡先は自動で取得されます。",
+    },
   },
   profile: {
     sContacts: "さんの連絡先",

@@ -5,12 +5,14 @@ import {FormattedMessage} from "react-intl";
 import TermModal from "./TermModal";
 import RegisterModal from "./RegisterModal";
 import {Link} from "react-router-dom";
+import BasicLayout from "../../components/layout/BasicLayout";
 
 const Register = () => {
   const [openTerm, setOpenTerm] = useState(false);
   const [agreeTerm, setAgreeTerm] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
-  return <div>
+
+  return <BasicLayout>
     <Term>
       <Form>
         <TermModal
@@ -33,14 +35,14 @@ const Register = () => {
 
       </Form>
     </Term>
-  </div>
+  </BasicLayout>
 };
 
 const Term = styled.div`
   display:flex;
   place-content: center;
   align-items: center;
-  height: 100vh;
+  height: 80vh;
   white-space: nowrap;
 `;
 

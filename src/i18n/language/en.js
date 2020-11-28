@@ -27,7 +27,10 @@ export default {
       message: "At lease one of the following will be sent to your friend when you send your contact.",
       name: "Name",
       nickName: "Nick Name",
-    }
+    },
+    step2: {
+      message: "Authorize this app with using least one of the your account below.",
+    },
   },
   profile: {
     sContacts: "'s contacts'",
